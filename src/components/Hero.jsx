@@ -30,16 +30,6 @@ export default function Hero() {
       </div>
 
       <div className="hero-content">
-        {/* Agency descriptor — fade in first */}
-        <motion.p
-          className="hero-agency-type"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.7 }}
-          transition={{ delay: 0.3, duration: 1 }}
-        >
-          Digital Marketing & Creative Agency
-        </motion.p>
-
         {/* Brand name — v4 layout: MON / DAYS / MEDIA each on own line */}
         <h1 className="hero-brand-name">
           {/* MON — slide from left */}
@@ -47,7 +37,7 @@ export default function Hero() {
             className="hero-line hero-line-mon"
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5, duration: 1, ease: 'easeOut' }}
+            transition={{ delay: 0.3, duration: 1, ease: 'easeOut' }}
           >
             MON
           </motion.span>
