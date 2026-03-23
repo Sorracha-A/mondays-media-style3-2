@@ -600,7 +600,6 @@ button {
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 80px;
 }
 
 .btn-primary {
