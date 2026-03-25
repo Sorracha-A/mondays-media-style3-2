@@ -46,19 +46,43 @@ export default function Contact() {
   const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', service: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`New Inquiry from ${form.name} - ${form.company || 'N/A'}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nCompany: ${form.company}\nEmail: ${form.email}\nPhone: ${form.phone}\nService: ${form.service}\n\nMessage:\n${form.message}`
-    );
-    window.location.href = `mailto:sales@mondaysmedia.com?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+    setSubmitting(true);
+    setError('');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: 'adc0f33a-dddb-4202-a237-07c3a7248f7f',
+          subject: `New Inquiry from ${form.name} - ${form.company || 'N/A'}`,
+          from_name: 'Mondays Media Website',
+          name: form.name,
+          company: form.company,
+          email: form.email,
+          phone: form.phone,
+          service: form.service,
+          message: form.message,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
+    } catch {
+      setError('Something went wrong. Please try again.');
+    }
+    setSubmitting(false);
   };
 
   return (
@@ -177,13 +201,16 @@ export default function Contact() {
                 onChange={handleChange}
               />
             </div>
+            {error && <p style={{ color: '#ff6b6b', marginBottom: 12 }}>{error}</p>}
             <motion.button
               type="submit"
               className="contact-cta-btn"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
+              disabled={submitting}
+              style={{ opacity: submitting ? 0.6 : 1 }}
             >
-              Submit Inquiry
+              {submitting ? 'Sending...' : 'Submit Inquiry'}
             </motion.button>
           </form>
         )}

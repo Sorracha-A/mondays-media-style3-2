@@ -98,7 +98,7 @@ export default function CaseStudies() {
           <span>Results</span>
         </div>
         <h2>Case Studies That<br />Speak For Themselves</h2>
-        <p>Real brands. Real strategies. Real, measurable growth.</p>
+        <p>Real brands. Real strategies. Real measurable growth.</p>
       </motion.div>
 
       {cases.map((c, i) => (
