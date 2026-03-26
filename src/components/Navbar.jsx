@@ -36,7 +36,6 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
         <a href="#" className="nav-logo" onClick={closeMobile}>
-          <img src="/images/logo-m-icon-cream.webp" alt="M" className="nav-logo-icon" />
           <img src="/images/logo-mondays-media-cream.webp" alt="Mondays Media" className="nav-logo-text" />
         </a>
 
